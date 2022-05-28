@@ -1,0 +1,53 @@
+@using MudBlazor
+@using System.Net.Http.Json
+<div>
+    <h1>@message!</h1>
+
+    <p>Current count: @currentCount</p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+    <MudButton Variant="Variant.Filled">Default</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
+    <MudButton Variant="Variant.Filled" Disabled="true">Disabled</MudButton>
+
+
+
+    <MudButton Variant="Variant.Filled" OnClick="GetContent">GetHttpContent</MudButton>
+    @httpContent
+
+
+</div>
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+@code
+{
+
+    [Inject]
+    HttpClient Http{ get; set; }
+    string message;
+    private int currentCount = 0;
+
+    public string httpContent { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        message = "Hello Photino.Blazor!";
+    }
+
+    void IncrementCount(object e)
+    {
+        currentCount++;
+    }
+
+    async Task GetContent(){
+        httpContent = await Http.GetStringAsync("https://raw.githubusercontent.com/tryphotino/photino.Blazor/master/.gitignore");
+        StateHasChanged();
+
+    }
+}
