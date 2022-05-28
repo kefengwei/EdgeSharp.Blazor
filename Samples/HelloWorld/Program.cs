@@ -20,7 +20,6 @@ namespace HelloWorld
 
 
             appBuilder.Config.WindowOptions.Borderless = true;
-            appBuilder.Config.WindowOptions.HighDpiMode = EdgeSharp.Core.Configuration.HighDpiMode.PER_MONITOR_AWARE2;
 
             var app = appBuilder.Build();
 
