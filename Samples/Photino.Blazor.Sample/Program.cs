@@ -1,15 +1,12 @@
-﻿using System;
-using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
-using EdgeSharp.Blazor;
-using EdgeSharp;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace EdgeSharp.Blazor.Sample
 {
-    class Program
+    internal class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var appBuilder = EdgeSharpBlazorAppBuilder.CreateDefault(args);
 
@@ -21,15 +18,12 @@ namespace EdgeSharp.Blazor.Sample
 
             var app = appBuilder.Build();
 
-           
-
             AppDomain.CurrentDomain.UnhandledException += (sender, error) =>
             {
                 //app.MainWindow.OpenAlertWindow("Fatal exception", error.ExceptionObject.ToString());
             };
 
             app.Run(args);
-
         }
     }
 }

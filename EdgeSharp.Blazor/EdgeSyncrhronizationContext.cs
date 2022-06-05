@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,7 +33,6 @@ namespace EdgeSharp.Blazor
             var item = (WorkItem)state;
             item.SynchronizationContext.ExecuteBackground(item);
         };
-
 
         public EdgeSharpSyncrhronizationContext()
         {
@@ -255,7 +253,6 @@ namespace EdgeSharp.Blazor
                     completion?.SetResult(null);
                 }
             });
-           
         }
 
         private void ExecuteBackground(WorkItem item)

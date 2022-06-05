@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using EdgeSharp.Core;
+using EdgeSharp.Core.Defaults;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-using EdgeSharp;
-using EdgeSharp.Core;
-using EdgeSharp.Core.Defaults;
 
 namespace EdgeSharp.Blazor
 {
@@ -16,10 +14,8 @@ namespace EdgeSharp.Blazor
         public BlazorEdgeSharpConfig()
         {
             StartUrl = EdgeSharpWebViewManager.AppBaseUri;
-
         }
     }
-
 
     public class EdgeSharpBlazorAppBuilder
     {
@@ -72,10 +68,8 @@ namespace EdgeSharp.Blazor
 
         public BlazorEdgeSharpConfig Config { get; set; }
 
-
         public AppBuilder Build(Action<IServiceProvider> serviceProviderOptions = null)
         {
-
             appBuilder.Build();
             var sp = ServiceLocator.Current.Provider;
 

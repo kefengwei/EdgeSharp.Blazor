@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace EdgeSharp.Blazor.Utils
 {
-    class SynchronousTaskScheduler : TaskScheduler
+    internal class SynchronousTaskScheduler : TaskScheduler
     {
         public override int MaximumConcurrencyLevel
         {

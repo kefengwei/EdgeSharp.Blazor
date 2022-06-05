@@ -1,12 +1,10 @@
 using EdgeSharp.Browser;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Web.WebView2.Core;
-using System.IO;
 using System;
-using System.Diagnostics;
-using EdgeSharp.NativeHosts;
-using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace EdgeSharp.Blazor
 {
@@ -21,13 +19,12 @@ namespace EdgeSharp.Blazor
 
         private EdgeSharpBlazorApp _app { get; set; }
 
-        public EdgeSharpWindow(IServiceProvider services):base()
+        public EdgeSharpWindow(IServiceProvider services) : base()
         {
             this.services = services;
             _app = services.GetService<EdgeSharpBlazorApp>();
             rootComponents = _app.RootComponents;
         }
-
 
         protected override void OnInitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
         {
@@ -50,12 +47,8 @@ namespace EdgeSharp.Blazor
             }
         }
 
-        
-
         private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
-           
-
             var uri = new Uri(e.Request.Uri);
             if (uri.Host == "0.0.0.0")
             {
@@ -63,8 +56,6 @@ namespace EdgeSharp.Blazor
                 var stream = HandleWebRequest(sender, uri.Scheme, e.Request.Uri, out contentType);
                 e.Response = CoreWebView2.Environment.CreateWebResourceResponse(stream, 200, "OK", contentType);
             }
-           
-
         }
 
         public Stream HandleWebRequest(object sender, string scheme, string url, out string contentType)

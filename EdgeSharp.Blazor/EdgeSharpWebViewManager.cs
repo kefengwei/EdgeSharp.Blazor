@@ -1,18 +1,17 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebView;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Web.WebView2.Core;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EdgeSharp.Blazor
 {
@@ -39,14 +38,12 @@ namespace EdgeSharp.Blazor
             // Create a scheduler that uses one threads.
             var sts = new Utils.SynchronousTaskScheduler();
 
- 
-           
             // _window.WebMessageReceived += (sender, message) =>
-            
-            _window.CoreWebView2.WebMessageReceived += (sender,  message) =>
+
+            _window.CoreWebView2.WebMessageReceived += (sender, message) =>
             {
                 // On some platforms, we need to move off the browser UI thread
-                Task.Factory.StartNew(( message) =>
+                Task.Factory.StartNew((message) =>
                 {
                     var msg = (CoreWebView2WebMessageReceivedEventArgs)message;
                     // TODO: Fix this. Photino should ideally tell us the URL that the message comes from so we
@@ -91,7 +88,7 @@ namespace EdgeSharp.Blazor
         protected override void SendMessage(string message)
         {
             Debug.WriteLine($"SendMessage:{message}");
-           
+
             //Task.Run(() => Dispatcher.InvokeAsync(() => _window.ExecuteScriptAsync(message)));
             Task.Run(() => Dispatcher.InvokeAsync(() => _window.CoreWebView2.PostWebMessageAsString(message)));
         }

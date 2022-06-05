@@ -1,14 +1,14 @@
-﻿using System;
-using System.Net.Http;
+﻿using EdgeSharp.Blazor;
 using Microsoft.Extensions.DependencyInjection;
-using EdgeSharp.Blazor;
 using MudBlazor.Services;
+using System;
+
 namespace HelloWorld
 {
-    class Program
+    internal class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var appBuilder = EdgeSharpBlazorAppBuilder.CreateDefault(args);
             appBuilder.Services
@@ -17,7 +17,6 @@ namespace HelloWorld
 
             // register root component
             appBuilder.RootComponents.Add<App>("app");
-
 
             appBuilder.Config.WindowOptions.Borderless = true;
 
@@ -35,6 +34,5 @@ namespace HelloWorld
 
             app.Run(args);
         }
-
     }
 }

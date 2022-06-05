@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EdgeSharp.Browser;
+using EdgeSharp.Core;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,13 +11,13 @@ namespace EdgeSharp.Blazor
 {
     public class EdgeSharpHttpHandler : DelegatingHandler
     {
-
         private EdgeSharpWindow _window;
 
-
         //use this constructor if a handler is registered in DI to inject dependencies
-        public EdgeSharpHttpHandler(EdgeSharpWindow window) 
+        public EdgeSharpHttpHandler(IBrowserWindow window)
         {
+            _window =  window as EdgeSharpWindow;
+            InnerHandler = new HttpClientHandler();
         }
 
         ////Use this constructor if a handler is created manually.
@@ -36,7 +34,7 @@ namespace EdgeSharp.Blazor
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             Stream content = _window.HandleWebRequest(null, null, request.RequestUri.AbsoluteUri, out string contentType);
-            if(content != null)
+            if (content != null)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StreamContent(content);
